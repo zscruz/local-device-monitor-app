@@ -1,0 +1,54 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:DeviceMonitor.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:DeviceMonitor.Converters"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400"
+        x:Class="DeviceMonitor.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Device Monitor">
+    <Window.Resources>
+        <converters:DeviceStatusToColorConverter x:Key="StatusConverter" />
+    </Window.Resources>
+    <Design.DataContext>
+        <vm:DesignWindowViewModel></vm:DesignWindowViewModel>
+    </Design.DataContext>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Vertical" Background="#121212">
+            <TextBlock Margin="5"
+                       FontSize="24"
+                       Foreground="#FFFFFF"
+                       Text="Devices"/>
+            <ItemsControl ItemsSource="{Binding Devices }">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="10"
+                                Padding="5"
+                                BorderThickness="1"
+                                CornerRadius="10"
+                                MinWidth="100"
+                                MinHeight="100"
+                                MaxWidth="200"
+                                Background="{Binding Status, Converter={StaticResource StatusConverter}}">
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontSize="16"
+                                           Foreground="#FFFFFF"
+                                           TextTrimming="CharacterEllipsis"
+                                           Text="{Binding Name}"
+                                           TextWrapping="Wrap"
+                                           ToolTip.Tip="{Binding Name}"/>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
+</Window>

@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="DeviceMonitor.UnitTests/DeviceMonitor.UnitTests.csproj" />
+  <Project Path="DeviceMonitor/DeviceMonitor.csproj" />
+</Solution>
